@@ -62,7 +62,7 @@ else:
 # THE ACTUAL BOT - SCOTTY SECTION
 # -------------------------------
 
-TOKEN = 'NTk4NzI2MTU4MzE3NzgxMDIx.XSbKLQ.TNRQf1L2UyfM0oqm8uYCuJaC1Mk'
+TOKEN = 'XXX'
 
 client = commands.Bot(command_prefix=';')
 
