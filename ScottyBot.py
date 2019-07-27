@@ -18,8 +18,8 @@ import redis
 fall = cmu_course_api.get_course_data('F')
 spring = cmu_course_api.get_course_data('S')
 
-walkTime = XXX
-treatTime = XXX
+walkTime = 20
+treatTime = 5
 
 global messageCount
 messageCount = 0
@@ -62,7 +62,7 @@ else:
 # THE ACTUAL BOT - SCOTTY SECTION
 # -------------------------------
 
-TOKEN = 'XXX'
+TOKEN = XXX
 
 client = commands.Bot(command_prefix=';')
 
@@ -249,7 +249,10 @@ async def status(ctx):
 	string2 = """Number of Treats: **{0}/3**
 	Treats Given: **{1}**
 	Time until Next Treat: """.format(scotty['numTreats'], scotty['treatsGiven'])
-	
+
+	if curSecs == 60:
+		curMins += 1
+		curSecs = 0
 	final = '**00\:{0:02d}\:{1:02d}**'.format(int(curMins) - 1, int(curSecs))
 	
 	if scotty['numTreats'] == 3:
@@ -292,7 +295,12 @@ async def leaderboard(ctx, arg):
 		await ctx.channel.send(embed=embed)
 			
 	elif arg == 'treat':
-		treatList = [(scottyData[key]['nick'], scottyData[key]['treatsGiven']) for key in scottyData.keys()]
+		print(scottyData)
+		treatList = []
+		for key in scottyData.keys():
+			print(key)
+			treatList.append((scottyData[key]['nick'], scottyData[key]['treatsGiven']))
+		#treatList = [(scottyData[key]['nick'], scottyData[key]['treatsGiven']) for key in scottyData.keys()]
 		treatList = sorted(treatList, key=takeSecond, reverse=True)
 		docstring = ''
 		for i, info in enumerate(treatList[:10]):
